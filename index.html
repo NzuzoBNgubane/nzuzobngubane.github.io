@@ -3,29 +3,458 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name</title>
+  <title>Your Name — Economics &amp; Quantitative Research</title>
   <style>
-    body {
-      max-width: 720px;
-      margin: 60px auto;
-      padding: 0 20px;
-      font-family: system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      color: #1f2328;
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #1e3a5f;
+      --accent-hover: #0f243e;
+      --tag-bg: #f1f5f9;
     }
-    h1 { margin-bottom: 0.25rem; }
-    .meta { color: #57606a; margin-bottom: 1.5rem; }
-    a { color: #0969da; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Top Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(248, 250, 252, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      font-size: 0.92rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Hero / Intro */
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 36px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+
+    .subtitle {
+      margin: 0 0 18px;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .bio {
+      margin: 0 0 22px;
+      color: var(--text);
+      max-width: 72ch;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--tag-bg);
+      border-color: #cbd5e1;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: #ffffff;
+    }
+
+    /* Sections */
+    section {
+      margin-top: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      letter-spacing: -0.015em;
+    }
+
+    .section-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Cards & Lists */
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 650;
+    }
+
+    .badge {
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--tag-bg);
+      color: var(--accent);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .card-meta {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin: 0 0 12px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .links-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    ul.clean-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      font-size: 0.93rem;
+      color: var(--muted);
+    }
+
+    ul.clean-list li {
+      margin-bottom: 5px;
+    }
+
+    footer {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.86rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 24px 20px;
+      }
+      h1 {
+        font-size: 1.65rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Your Name</h1>
-  <p class="meta">Economics &amp; Quantitative Research · <a href="mailto:you@example.com">Email</a> · <a href="https://github.com/your-username">GitHub</a></p>
-  <p>Short bio goes here.</p>
-  <h2>CV &amp; Writing</h2>
-  <ul>
-    <li><a href="cv.pdf">Curriculum Vitae (PDF)</a></li>
-    <li><a href="papers/draft.pdf">Working Paper Title (PDF)</a></li>
-  </ul>
+  <header>
+    <div class="nav-inner">
+      <a class="brand" href="#">Your Name</a>
+      <nav aria-label="Primary">
+        <a href="#research">Research</a>
+        <a href="#writing">Essays &amp; Notes</a>
+        <a href="#code">Code</a>
+        <a href="#cv">CV</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Introduction">
+      <div class="eyebrow">Economics · Quantitative Finance · Markets</div>
+      <h1>Your Name</h1>
+      <p class="subtitle">BCom Economics (Quantitative Stream) Student · Monetary &amp; Policy Economics, Debt Capital Markets, and Numerical Methods</p>
+      <p class="bio">
+        I study quantitative economics and build reproducible Python tools for numerical simulation,
+        fixed income and rates analysis, option pricing, and empirical macro/market research.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="cv.pdf">Download CV (PDF)</a>
+        <a class="btn" href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="btn" href="#contact">Email</a>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="section-header">
+        <h2>Research &amp; Working Papers</h2>
+        <span class="section-note">Drafts &amp; ongoing work</span>
+      </div>
+      <div class="stack">
+        <article class="card">
+          <div class="card-top">
+            <h3 class="card-title">Working Paper Title Goes Here</h3>
+            <span class="badge">Working Draft</span>
+          </div>
+          <div class="card-meta">With Co-Author / Mentor Name(s) · 2026</div>
+          <p>
+            Concise 2–3 sentence abstract summarizing the research question, data/methodology,
+            and main takeaway once ready to share.
+          </p>
+          <div class="links-row">
+            <a href="papers/working-paper-1.pdf">Paper (PDF)</a>
+            <a href="https://github.com/your-username/repo-name" target="_blank" rel="noopener noreferrer">Replication Code</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="writing">
+      <div class="section-header">
+        <h2>Essays &amp; Notes</h2>
+        <span class="section-note">Selected writing</span>
+      </div>
+      <div class="stack">
+        <article class="card">
+          <div class="card-top">
+            <h3 class="card-title">Essay or Technical Note Title</h3>
+            <span class="badge">Note</span>
+          </div>
+          <div class="card-meta">November 2026 · Policy / Markets / Methodology</div>
+          <p>
+            Short summary of what the piece covers—whether a policy note, a market observation,
+            or a short essay.
+          </p>
+          <div class="links-row">
+            <a href="essays/note-1.pdf">Read PDF</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="code">
+      <div class="section-header">
+        <h2>Quantitative &amp; Data Code</h2>
+        <span class="section-note">Python · NumPy · Pandas · Matplotlib</span>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <div class="card-top">
+            <h3 class="card-title">GBM Path Simulator</h3>
+            <span class="badge">Python</span>
+          </div>
+          <p>
+            Historical drift/volatility estimation with caching and retries, pure NumPy GBM path
+            simulation using antithetic variates, and terminal/drawdown diagnostics.
+          </p>
+          <div class="links-row">
+            <a href="https://github.com/your-username/your-repo" target="_blank" rel="noopener noreferrer">View Repository</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <h3 class="card-title">Pricing, Fixed Income &amp; Macro Tools</h3>
+            <span class="badge">Python</span>
+          </div>
+          <p>
+            Clean numerical routines for option pricing, bond yield-to-maturity solvers, macro rate
+            tracking, and walk-forward return/direction models.
+          </p>
+          <div class="links-row">
+            <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">All Repositories</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="cv">
+      <div class="section-header">
+        <h2>Curriculum Vitae</h2>
+        <span class="section-note"><a href="cv.pdf">Full PDF Version</a></span>
+      </div>
+      <div class="two-col">
+        <article class="card">
+          <h3 class="card-title">Education &amp; Focus</h3>
+          <ul class="clean-list">
+            <li><strong>BCom in Economics (Quantitative Stream)</strong> — University of South Africa (UNISA)</li>
+            <li>Core interests: Monetary &amp; Policy Economics, Debt Capital Markets, Quantitative Finance</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3 class="card-title">Technical &amp; Languages</h3>
+          <ul class="clean-list">
+            <li><strong>Tools:</strong> Python (NumPy, Pandas, Matplotlib), Git, SQL/C++ foundations</li>
+            <li><strong>Languages:</strong> English, French (working/fluent); classical &amp; modern language study</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-header">
+        <h2>Contact</h2>
+        <span class="section-note">Research, internships &amp; inquiries</span>
+      </div>
+      <div class="card">
+        <p>
+          Reach out by email at <a href="mailto:your-school-email@domain.ac.za">your-school-email@domain.ac.za</a>
+          or find my code and repositories on <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer">GitHub</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year">2026</span> Your Name</span>
+    <span>Hosted on GitHub Pages</span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
